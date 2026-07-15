@@ -1,0 +1,68 @@
+name: foodpanda_admin
+description: "Admin console for the FoodPanda delivery platform (manage users, restaurants, orders & analytics)."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.4.0
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # State management & storage
+  get: ^4.6.6
+  get_storage: ^2.1.1
+  collection: ^1.18.0
+
+  # Firebase
+  firebase_core: ^3.0.0
+  firebase_auth: ^5.0.0
+  cloud_firestore: ^5.0.0
+  firebase_storage: ^12.0.0
+  firebase_messaging: ^15.0.0
+
+  # Networking & utilities
+  dio: ^5.4.0
+  connectivity_plus: ^7.2.0
+  logger: ^2.7.0
+  equatable: ^2.0.8
+  dartz: ^0.10.1
+
+  # UI / charts / design
+  flutter_screenutil: ^5.9.3
+  cached_network_image: ^3.3.1
+  flutter_svg: ^2.0.10
+  intl: ^0.19.0
+  lottie: ^3.1.2
+  shimmer: ^3.0.0
+  responsive_framework: ^1.5.1
+  flutter_rating_bar: ^4.0.1
+  syncfusion_flutter_charts: ^25.1.0
+  fl_chart: ^0.68.0
+  dropdown_button2: ^2.3.9
+  flutter_staggered_grid_view: ^0.7.0
+  animate_do: ^3.3.4
+  flutter_animate: ^4.5.0
+  confetti: ^0.8.0
+  google_fonts: ^8.1.0
+
+  # Hardware & communication
+  url_launcher: ^6.3.0
+  permission_handler: ^11.0.0
+  image_picker: ^1.0.0
+  file_picker: ^8.0.0
+  flutter_local_notifications: ^22.0.1
+  msix: ^3.18.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/

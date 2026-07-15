@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "40549094141",
+    "project_id": "suav-nyiaj-ya",
+    "storage_bucket": "suav-nyiaj-ya.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40549094141:android:7c73a04bcf1f479e226494",
+        "android_client_info": {
+          "package_name": "com.example.foodpanda_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40549094141-uefgkf9vumejd5aec8edp56qocrtc1nj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcwk1e_IaI0uWyj5yNOD73uf9NlLN2jNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40549094141-uefgkf9vumejd5aec8edp56qocrtc1nj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "40549094141-1vutehpnmgsa5rd0edbf5pc5riva3qfh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.countMoney"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40549094141:android:853b7532fe238c2b226494",
+        "android_client_info": {
+          "package_name": "com.hmong_hup_ai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40549094141-9vpkt5fal0rph41g0j6b1blm86ej86to.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hmong_hup_ai",
+            "certificate_hash": "3ead04121bab39c5fbc40e286cad571611c32a25"
+          }
+        },
+        {
+          "client_id": "40549094141-uefgkf9vumejd5aec8edp56qocrtc1nj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcwk1e_IaI0uWyj5yNOD73uf9NlLN2jNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40549094141-uefgkf9vumejd5aec8edp56qocrtc1nj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "40549094141-1vutehpnmgsa5rd0edbf5pc5riva3qfh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.countMoney"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
