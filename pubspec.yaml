@@ -57,6 +57,15 @@ dependencies:
   flutter_local_notifications: ^22.0.1
   msix: ^3.18.0
 
+msix_config:
+  display_name: FoodPanda Admin
+  publisher_display_name: SDL
+  title: FoodPanda Admin App
+  identity_name: com.foodpanda.admin
+  publisher: CN=YourNameOrCompany, O=YourOrganization, C=LA
+  logo_path: assets/images/background_icon.png
+  architecture: x64
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
