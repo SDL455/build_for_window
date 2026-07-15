@@ -1,0 +1,80 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helpers
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isMerchant() {
+      return isAuthenticated() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'merchant';
+    }
+    
+    function isRider() {
+      return isAuthenticated() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'rider';
+    }
+    
+    function isCustomer() {
+      return isAuthenticated() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'customer';
+    }
+
+    // Users collection - Allow users to register themselves, but only admin can assign roles
+    match /users/{userId} {
+      allow read: if isAdmin() || request.auth.uid == userId;
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isAdmin() || (request.auth.uid == userId && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role']));
+      allow delete: if isAdmin();
+    }
+
+    // Restaurants collection - Merchants and Admins
+    match /restaurants/{restaurantId} {
+      allow read: if isAuthenticated();
+      allow create: if isAdmin() || isMerchant();
+      allow update: if isAdmin() || (isMerchant() && resource.data.ownerId == request.auth.uid);
+      allow delete: if isAdmin();
+      
+      // Menu items (products)
+      match /products/{productId} {
+        allow read: if isAuthenticated();
+        allow write: if isAdmin() || (isMerchant() && get(/databases/$(database)/documents/restaurants/$(restaurantId)).data.ownerId == request.auth.uid);
+      }
+    }
+
+    // Products collection (Global list if applicable)
+    match /products/{productId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin() || isMerchant();
+    }
+
+    // Orders collection
+    match /orders/{orderId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAdmin() || isRider() || isMerchant() || request.auth.uid == resource.data.customerId;
+      allow delete: if isAdmin();
+    }
+
+    // Categories collection
+    match /categories/{categoryId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    // Reviews collection
+    match /reviews/{reviewId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAdmin() || request.auth.uid == resource.data.userId;
+      allow delete: if isAdmin();
+    }
+
+    // Default deny all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

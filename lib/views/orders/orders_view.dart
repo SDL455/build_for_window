@@ -2,8 +2,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-import '../../app/constants/app_constants.dart';
 import '../../app/theme/app_theme.dart';
 import '../../app/utils/helpers.dart';
 import '../../controllers/orders_controller.dart';
@@ -39,13 +37,19 @@ class OrdersView extends StatelessWidget {
                       value: ctrl.statusFilter.value,
                       items: const [
                         DropdownMenuItem(value: 'all', child: Text('All')),
-                        DropdownMenuItem(value: 'pending', child: Text('Pending')),
-                        DropdownMenuItem(value: 'accepted', child: Text('Accepted')),
-                        DropdownMenuItem(value: 'preparing', child: Text('Preparing')),
+                        DropdownMenuItem(
+                            value: 'pending', child: Text('Pending')),
+                        DropdownMenuItem(
+                            value: 'accepted', child: Text('Accepted')),
+                        DropdownMenuItem(
+                            value: 'preparing', child: Text('Preparing')),
                         DropdownMenuItem(value: 'ready', child: Text('Ready')),
-                        DropdownMenuItem(value: 'picked_up', child: Text('On the way')),
-                        DropdownMenuItem(value: 'delivered', child: Text('Delivered')),
-                        DropdownMenuItem(value: 'cancelled', child: Text('Cancelled')),
+                        DropdownMenuItem(
+                            value: 'picked_up', child: Text('On the way')),
+                        DropdownMenuItem(
+                            value: 'delivered', child: Text('Delivered')),
+                        DropdownMenuItem(
+                            value: 'cancelled', child: Text('Cancelled')),
                       ],
                       onChanged: (v) => ctrl.statusFilter.value = v ?? 'all',
                       buttonStyleData: ButtonStyleData(
@@ -89,7 +93,10 @@ class OrdersView extends StatelessWidget {
         color: AppTheme.surface,
         borderRadius: BorderRadius.circular(14.r),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 8, offset: const Offset(0, 3)),
+          BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              blurRadius: 8,
+              offset: const Offset(0, 3)),
         ],
       ),
       child: Column(
@@ -97,16 +104,21 @@ class OrdersView extends StatelessWidget {
         children: [
           Row(
             children: [
-              Expanded(child: Text(o.restaurantName, style: const TextStyle(fontWeight: FontWeight.w600))),
+              Expanded(
+                  child: Text(o.restaurantName,
+                      style: const TextStyle(fontWeight: FontWeight.w600))),
               OrderStatusChip(status: o.status),
             ],
           ),
           SizedBox(height: 4.h),
           Text('Customer: ${o.customerName}',
               style: const TextStyle(color: AppTheme.textSecondary)),
-          Text('Items: ${o.items.map((i) => '${i.quantity}x ${i.name}').join(', ')}',
-              maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 12, color: AppTheme.textSecondary)),
+          Text(
+              'Items: ${o.items.map((i) => '${i.quantity}x ${i.name}').join(', ')}',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style:
+                  const TextStyle(fontSize: 12, color: AppTheme.textSecondary)),
           SizedBox(height: 6.h),
           Row(
             children: [
@@ -114,7 +126,8 @@ class OrdersView extends StatelessWidget {
                   style: const TextStyle(fontWeight: FontWeight.w700)),
               SizedBox(width: 12.w),
               Text(Helpers.formatDate(o.createdAt),
-                  style: const TextStyle(fontSize: 12, color: AppTheme.textSecondary)),
+                  style: const TextStyle(
+                      fontSize: 12, color: AppTheme.textSecondary)),
               const Spacer(),
               TextButton(
                 onPressed: () => _detail(o),
@@ -124,17 +137,22 @@ class OrdersView extends StatelessWidget {
                 PopupMenuButton<String>(
                   onSelected: (s) => ctrl.updateStatus(o, s),
                   itemBuilder: (_) => const [
-                    PopupMenuItem(value: 'accepted', child: Text('Mark accepted')),
-                    PopupMenuItem(value: 'preparing', child: Text('Mark preparing')),
+                    PopupMenuItem(
+                        value: 'accepted', child: Text('Mark accepted')),
+                    PopupMenuItem(
+                        value: 'preparing', child: Text('Mark preparing')),
                     PopupMenuItem(value: 'ready', child: Text('Mark ready')),
-                    PopupMenuItem(value: 'picked_up', child: Text('Mark picked up')),
-                    PopupMenuItem(value: 'delivered', child: Text('Mark delivered')),
+                    PopupMenuItem(
+                        value: 'picked_up', child: Text('Mark picked up')),
+                    PopupMenuItem(
+                        value: 'delivered', child: Text('Mark delivered')),
                   ],
                   child: const Text('Advance'),
                 ),
               if (o.status != 'delivered' && o.status != 'cancelled')
                 IconButton(
-                  icon: const Icon(Icons.cancel_outlined, color: AppTheme.error),
+                  icon:
+                      const Icon(Icons.cancel_outlined, color: AppTheme.error),
                   onPressed: () => ctrl.cancelOrder(o),
                 ),
             ],
@@ -160,7 +178,8 @@ class OrdersView extends StatelessWidget {
             const SizedBox(height: 8),
             ...o.items.map((i) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text('${i.quantity}x ${i.name} — ${Helpers.formatCurrency(i.total)}'),
+                  child: Text(
+                      '${i.quantity}x ${i.name} — ${Helpers.formatCurrency(i.total)}'),
                 )),
             const Divider(),
             Row(

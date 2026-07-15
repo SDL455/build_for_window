@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../app/routes/app_routes.dart';
 import '../../app/theme/app_theme.dart';
-import '../../app/utils/helpers.dart';
 import '../../app/utils/validators.dart';
 import '../../controllers/auth_controller.dart';
 import '../../widgets/auth_layout.dart';
@@ -143,9 +142,8 @@ class RegisterView extends StatelessWidget {
               prefixIcon: Icon(icon),
               suffixIcon: toggle != null
                   ? IconButton(
-                      icon: Icon(obscure
-                          ? Icons.visibility_off
-                          : Icons.visibility),
+                      icon: Icon(
+                          obscure ? Icons.visibility_off : Icons.visibility),
                       onPressed: toggle,
                     )
                   : null,

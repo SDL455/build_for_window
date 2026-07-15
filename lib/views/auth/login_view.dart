@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../app/routes/app_routes.dart';
 import '../../app/theme/app_theme.dart';
-import '../../app/utils/helpers.dart';
 import '../../controllers/auth_controller.dart';
 import '../../widgets/auth_layout.dart';
 
@@ -72,8 +70,10 @@ class LoginView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Don't have an admin account? ",
-                    style: TextStyle(color: AppTheme.textSecondary)),
+                Flexible(
+                  child: const Text("Don't have an admin account? ",
+                      style: TextStyle(color: AppTheme.textSecondary)),
+                ),
                 GestureDetector(
                   onTap: () => Get.toNamed(AppRoutes.register),
                   child: Text('Create one',
@@ -116,9 +116,8 @@ class LoginView extends StatelessWidget {
               prefixIcon: Icon(icon),
               suffixIcon: toggle != null
                   ? IconButton(
-                      icon: Icon(obscure
-                          ? Icons.visibility_off
-                          : Icons.visibility),
+                      icon: Icon(
+                          obscure ? Icons.visibility_off : Icons.visibility),
                       onPressed: toggle,
                     )
                   : null,
