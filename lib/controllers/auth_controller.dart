@@ -84,6 +84,30 @@ class AuthController extends GetxController {
     );
   }
 
+  Future<void> registerAdmin({
+    required String fullName,
+    required String email,
+    required String password,
+    required String phone,
+  }) async {
+    isLoading.value = true;
+    final res = await _authService.registerAdmin(
+      fullName: fullName,
+      email: email,
+      password: password,
+      phone: phone,
+    );
+    isLoading.value = false;
+    res.fold(
+      (e) => Helpers.showError(e),
+      (user) {
+        currentUser.value = user;
+        _persist(user);
+        Get.offAllNamed(AppRoutes.dashboard);
+      },
+    );
+  }
+
   Future<Either<String, void>> updateCurrentUser(UserModel updated) async {
     final res = await _authService.updateUser(updated);
     res.fold((e) => Helpers.showError(e), (_) {

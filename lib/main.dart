@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'firebase_options.dart';
 import 'app/bindings/initial_binding.dart';
 import 'app/routes/app_pages.dart';
@@ -47,6 +48,15 @@ class MyApp extends StatelessWidget {
           defaultTransition: Transition.fadeIn,
           locale: Get.deviceLocale,
           fallbackLocale: const Locale('en', 'US'),
+          builder: (ctx, widget) => ResponsiveBreakpoints.builder(
+            child: widget!,
+            breakpoints: const [
+              Breakpoint(start: 0, end: 450, name: 'MOBILE'),
+              Breakpoint(start: 451, end: 800, name: 'TABLET'),
+              Breakpoint(start: 801, end: 1920, name: 'DESKTOP'),
+              Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+            ],
+          ),
         );
       },
     );

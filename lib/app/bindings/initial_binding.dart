@@ -1,5 +1,10 @@
 import 'package:get/get.dart';
+
 import '../../controllers/auth_controller.dart';
+import '../../controllers/dashboard_controller.dart';
+import '../../controllers/orders_controller.dart';
+import '../../controllers/restaurants_controller.dart';
+import '../../controllers/users_controller.dart';
 import '../../services/auth_service.dart';
 import '../../services/firestore_service.dart';
 import '../../services/storage_service.dart';

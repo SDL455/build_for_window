@@ -2,6 +2,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../app/constants/app_constants.dart';
 import '../../app/theme/app_theme.dart';
 import '../../app/utils/helpers.dart';
 import '../../controllers/auth_controller.dart';
@@ -74,7 +76,8 @@ class UsersView extends StatelessWidget {
     return Obx(() => DropdownButton2<String>(
           value: ctrl.roleFilter.value,
           items: roles
-              .map((r) => DropdownMenuItem(value: r['v'], child: Text(r['l']!)))
+              .map((r) => DropdownMenuItem(
+                  value: r['v'], child: Text(r['l']!)))
               .toList(),
           onChanged: (v) => ctrl.roleFilter.value = v ?? 'all',
           buttonStyleData: ButtonStyleData(
@@ -103,10 +106,7 @@ class UsersView extends StatelessWidget {
         color: AppTheme.surface,
         borderRadius: BorderRadius.circular(14.r),
         boxShadow: [
-          BoxShadow(
-              color: Colors.black.withOpacity(0.04),
-              blurRadius: 8,
-              offset: const Offset(0, 3)),
+          BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 8, offset: const Offset(0, 3)),
         ],
       ),
       child: Row(
@@ -122,16 +122,11 @@ class UsersView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(u.fullName,
-                    style: const TextStyle(fontWeight: FontWeight.w600)),
+                Text(u.fullName, style: const TextStyle(fontWeight: FontWeight.w600)),
                 SizedBox(height: 2.h),
-                Text(u.email,
-                    style: const TextStyle(
-                        fontSize: 12, color: AppTheme.textSecondary)),
+                Text(u.email, style: const TextStyle(fontSize: 12, color: AppTheme.textSecondary)),
                 SizedBox(height: 2.h),
-                Text(u.phone,
-                    style: const TextStyle(
-                        fontSize: 12, color: AppTheme.textSecondary)),
+                Text(u.phone, style: const TextStyle(fontSize: 12, color: AppTheme.textSecondary)),
               ],
             ),
           ),
@@ -142,8 +137,7 @@ class UsersView extends StatelessWidget {
               borderRadius: BorderRadius.circular(20.r),
             ),
             child: Text(u.role,
-                style: TextStyle(
-                    color: color, fontWeight: FontWeight.w600, fontSize: 12)),
+                style: TextStyle(color: color, fontWeight: FontWeight.w600, fontSize: 12)),
           ),
           SizedBox(width: 8.w),
           if (u.role != 'admin')
@@ -205,8 +199,7 @@ class UsersView extends StatelessWidget {
                   const SizedBox(height: 10),
                   TextField(
                     controller: store,
-                    decoration:
-                        const InputDecoration(labelText: 'Restaurant name'),
+                    decoration: const InputDecoration(labelText: 'Restaurant name'),
                   ),
                 ],
               )

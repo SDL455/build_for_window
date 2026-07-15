@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../app/routes/app_routes.dart';
 import '../../app/theme/app_theme.dart';
 import '../../app/utils/helpers.dart';
+import '../../controllers/auth_controller.dart';
 import '../../controllers/dashboard_controller.dart';
 import '../../widgets/admin_shell.dart';
 import '../../widgets/stat_card.dart';
@@ -28,6 +29,8 @@ class DashboardView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              _header(),
+              SizedBox(height: 20.h),
               // KPI cards
               GridView.count(
                 shrinkWrap: true,
@@ -200,6 +203,42 @@ class DashboardView extends StatelessWidget {
   String _dayLabel(int i) {
     final d = DateTime.now().subtract(Duration(days: 6 - i));
     return DateFormat('E').format(d);
+  }
+
+  Widget _header() {
+    final user = Get.find<AuthController>().user;
+    final now = DateFormat('EEEE, d MMM yyyy').format(DateTime.now());
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                user != null ? 'Welcome back, ${user.fullName.split(' ').first}' : 'Welcome back',
+                style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 4.h),
+              Text(now, style: const TextStyle(color: AppTheme.textSecondary)),
+            ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [AppTheme.primary, AppTheme.accent],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          child: const Text('LIVE',
+              style: TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.w700, letterSpacing: 1)),
+        ),
+      ],
+    );
   }
 
   Widget _quickLink(String label, IconData icon, String route, Color color) {

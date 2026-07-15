@@ -5,36 +5,52 @@ import 'package:get/get.dart';
 import '../../app/routes/app_routes.dart';
 import '../../app/theme/app_theme.dart';
 import '../../app/utils/helpers.dart';
+import '../../app/utils/validators.dart';
 import '../../controllers/auth_controller.dart';
 import '../../widgets/auth_layout.dart';
 
-class LoginView extends StatelessWidget {
-  LoginView({super.key});
+class RegisterView extends StatelessWidget {
+  RegisterView({super.key});
 
   final _form = GlobalKey<FormState>();
+  final _name = TextEditingController();
   final _email = TextEditingController();
+  final _phone = TextEditingController();
   final _password = TextEditingController();
+  final _confirm = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final auth = Get.find<AuthController>();
     return AuthLayout(
-      title: 'Sign in',
-      subtitle: 'Welcome back, please enter your admin credentials.',
+      title: 'Create admin account',
+      subtitle: 'Set up your administrator login to manage the platform.',
       features: const [
-        'Real-time orders & revenue analytics',
-        'Manage customers, merchants & riders',
-        'Approve restaurants and oversee deliveries',
+        'Full access to users, restaurants & orders',
+        'Platform-wide analytics & reports',
+        'Secure, role-restricted console',
       ],
       form: Form(
         key: _form,
         child: Column(
           children: [
             _field(
+              label: 'Full name',
+              controller: _name,
+              icon: Icons.person_outline,
+              validator: (v) => v!.isEmpty ? 'Required' : null,
+            ),
+            _field(
               label: 'Email',
               controller: _email,
               icon: Icons.email_outlined,
-              validator: (v) => v!.isEmpty ? 'Required' : null,
+              validator: Validators.email,
+            ),
+            _field(
+              label: 'Phone',
+              controller: _phone,
+              icon: Icons.phone_outlined,
+              validator: Validators.phone,
             ),
             Obx(() => _field(
                   label: 'Password',
@@ -42,8 +58,15 @@ class LoginView extends StatelessWidget {
                   icon: Icons.lock_outline,
                   obscure: auth.obscurePassword.value,
                   toggle: () => auth.togglePassword(),
-                  validator: (v) => v!.isEmpty ? 'Required' : null,
+                  validator: Validators.password,
                 )),
+            _field(
+              label: 'Confirm password',
+              controller: _confirm,
+              icon: Icons.lock_outline,
+              obscure: true,
+              validator: (v) => Validators.confirmPassword(v, _password.text),
+            ),
             SizedBox(height: 8.h),
             Obx(() => SizedBox(
                   width: double.infinity,
@@ -52,8 +75,12 @@ class LoginView extends StatelessWidget {
                         ? null
                         : () {
                             if (_form.currentState!.validate()) {
-                              auth.login(
-                                  email: _email.text, password: _password.text);
+                              auth.registerAdmin(
+                                fullName: _name.text,
+                                email: _email.text,
+                                password: _password.text,
+                                phone: _phone.text,
+                              );
                             }
                           },
                     child: auth.isLoading.value
@@ -65,18 +92,18 @@ class LoginView extends StatelessWidget {
                                 valueColor:
                                     AlwaysStoppedAnimation(Colors.white)),
                           )
-                        : const Text('Sign in'),
+                        : const Text('Create account'),
                   ),
                 )),
             SizedBox(height: 14.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Don't have an admin account? ",
+                const Text('Already have an account? ',
                     style: TextStyle(color: AppTheme.textSecondary)),
                 GestureDetector(
-                  onTap: () => Get.toNamed(AppRoutes.register),
-                  child: Text('Create one',
+                  onTap: () => Get.offNamed(AppRoutes.login),
+                  child: Text('Sign in',
                       style: TextStyle(
                           color: AppTheme.primary,
                           fontWeight: FontWeight.w600)),

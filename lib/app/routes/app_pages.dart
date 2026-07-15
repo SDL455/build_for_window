@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../views/splash/splash_view.dart';
 import '../../views/auth/login_view.dart';
+import '../../views/auth/register_view.dart';
 import '../../views/dashboard/dashboard_view.dart';
 import '../../views/users/users_view.dart';
 import '../../views/restaurants/restaurants_view.dart';
@@ -20,8 +21,9 @@ class AppPages {
   static const initial = AppRoutes.splash;
 
   static final routes = [
-    GetPage(name: AppRoutes.splash, page: () => SplashView()),
+    GetPage(name: AppRoutes.splash, page: () => const SplashView()),
     GetPage(name: AppRoutes.login, page: () => LoginView()),
+    GetPage(name: AppRoutes.register, page: () => RegisterView()),
     GetPage(
       name: AppRoutes.dashboard,
       page: () => const DashboardView(),

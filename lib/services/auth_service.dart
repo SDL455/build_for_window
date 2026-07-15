@@ -97,6 +97,40 @@ class AuthService {
     }
   }
 
+  /// Self-registration for the first/any admin account.
+  Future<Either<String, UserModel>> registerAdmin({
+    required String fullName,
+    required String email,
+    required String password,
+    required String phone,
+  }) async {
+    try {
+      final cred = await _auth.createUserWithEmailAndPassword(
+        email: email.trim(),
+        password: password,
+      );
+      final uid = cred.user!.uid;
+      final user = UserModel(
+        uid: uid,
+        email: email.trim(),
+        fullName: fullName.trim(),
+        phone: phone.trim(),
+        role: AppConstants.roleAdmin,
+        createdAt: DateTime.now(),
+      );
+      await _firestore
+          .collection(AppConstants.usersCollection)
+          .doc(uid)
+          .set(user.toMap());
+      await cred.user?.updateDisplayName(fullName.trim());
+      return Right(user);
+    } on FirebaseAuthException catch (e) {
+      return Left(_mapAuthError(e));
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
   Future<UserModel?> getUserModel(String uid) async {
     final doc = await _firestore
         .collection(AppConstants.usersCollection)
