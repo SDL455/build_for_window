@@ -53,8 +53,8 @@ class AuthLayout extends StatelessWidget {
               Expanded(
                 flex: 6,
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 48.w, vertical: 32.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 48.w, vertical: 32.h),
                   child: Center(
                     child: ConstrainedBox(
                       constraints: BoxConstraints(maxWidth: 440.w),
@@ -129,8 +129,11 @@ class _BrandingPanel extends StatelessWidget {
               color: Colors.white.withOpacity(0.15),
               borderRadius: BorderRadius.circular(16.r),
             ),
-            child: const Icon(Icons.admin_panel_settings,
-                color: Colors.white, size: 40),
+            child: Image.asset(
+              'assets/images/background_icon.png',
+              width: 56.w,
+              height: 56.w,
+            ),
           ),
           SizedBox(height: 24.h),
           Text('Control Center',
@@ -142,7 +145,8 @@ class _BrandingPanel extends StatelessWidget {
           Text(
             'Manage users, restaurants, orders and analytics for your '
             'entire FoodPanda platform from one place.',
-            style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 15.sp),
+            style: TextStyle(
+                color: Colors.white.withOpacity(0.9), fontSize: 15.sp),
           ),
           SizedBox(height: 28.h),
           ...features.map((f) => Padding(
@@ -202,8 +206,7 @@ class _FormCard extends StatelessWidget {
           Text(title,
               style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold)),
           SizedBox(height: 6.h),
-          Text(subtitle,
-              style: const TextStyle(color: AppTheme.textSecondary)),
+          Text(subtitle, style: const TextStyle(color: AppTheme.textSecondary)),
           SizedBox(height: 24.h),
           form,
         ],

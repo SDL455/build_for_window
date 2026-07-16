@@ -155,7 +155,8 @@ class DashboardView extends StatelessWidget {
                                         toY: e.value,
                                         color: AppTheme.primary,
                                         width: 18.w,
-                                        borderRadius: BorderRadius.circular(6.r),
+                                        borderRadius:
+                                            BorderRadius.circular(6.r),
                                       ),
                                     ],
                                   ))
@@ -172,8 +173,8 @@ class DashboardView extends StatelessWidget {
                 spacing: 12.w,
                 runSpacing: 12.w,
                 children: [
-                  _quickLink('Manage users', Icons.people_alt,
-                      AppRoutes.users, AppTheme.primary),
+                  _quickLink('Manage users', Icons.people_alt, AppRoutes.users,
+                      AppTheme.primary),
                   _quickLink('Manage restaurants', Icons.storefront,
                       AppRoutes.restaurants, AppTheme.accent),
                   _quickLink('Manage orders', Icons.receipt_long,
@@ -215,7 +216,9 @@ class DashboardView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                user != null ? 'Welcome back, ${user.fullName.split(' ').first}' : 'Welcome back',
+                user != null
+                    ? 'Welcome back, ${user.fullName.split(' ').first}'
+                    : 'Welcome back',
                 style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 4.h),
@@ -235,7 +238,9 @@ class DashboardView extends StatelessWidget {
           ),
           child: const Text('LIVE',
               style: TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.w700, letterSpacing: 1)),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1)),
         ),
       ],
     );

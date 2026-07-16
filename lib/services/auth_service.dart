@@ -32,7 +32,8 @@ class AuthService {
       if (user == null) return const Left('Account not found.');
       if (user.role != AppConstants.roleAdmin) {
         await _auth.signOut();
-        return const Left('This account is not authorized for the admin console.');
+        return const Left(
+            'This account is not authorized for the admin console.');
       }
       return Right(user);
     } on FirebaseAuthException catch (e) {
@@ -60,9 +61,8 @@ class AuthService {
       final uid = cred.user!.uid;
       String? restaurantId;
       if (role == AppConstants.roleMerchant) {
-        final doc = _firestore
-            .collection(AppConstants.restaurantsCollection)
-            .doc();
+        final doc =
+            _firestore.collection(AppConstants.restaurantsCollection).doc();
         restaurantId = doc.id;
         final restaurant = RestaurantModel(
           id: doc.id,
