@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../app/constants/app_constants.dart';
 import '../../app/theme/app_theme.dart';
 import '../../app/utils/helpers.dart';
 import '../../controllers/auth_controller.dart';
@@ -15,14 +16,16 @@ class UsersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ctrl = Get.find<UsersController>();
+    final isAdmin = Get.find<AuthController>().user?.role == AppConstants.roleAdmin;
     return AdminShell(
       title: 'Users',
       actions: [
-        IconButton(
-          icon: const Icon(Icons.person_add),
-          tooltip: 'Add user',
-          onPressed: () => _showAddDialog(context, ctrl),
-        ),
+        if (isAdmin)
+          IconButton(
+            icon: const Icon(Icons.person_add),
+            tooltip: 'Add user',
+            onPressed: () => _showAddDialog(context, ctrl),
+          ),
       ],
       body: Padding(
         padding: EdgeInsets.all(20.w),
@@ -54,7 +57,7 @@ class UsersView extends StatelessWidget {
                 return ListView.separated(
                   itemCount: list.length,
                   separatorBuilder: (_, __) => SizedBox(height: 10.h),
-                  itemBuilder: (_, i) => _userTile(list[i], ctrl),
+                  itemBuilder: (_, i) => _userTile(list[i], ctrl, isAdmin),
                 );
               }),
             ),
@@ -91,7 +94,7 @@ class UsersView extends StatelessWidget {
         ));
   }
 
-  Widget _userTile(UserModel u, UsersController ctrl) {
+  Widget _userTile(UserModel u, UsersController ctrl, bool isAdmin) {
     final color = u.isCustomer
         ? AppTheme.info
         : u.isMerchant
@@ -146,7 +149,7 @@ class UsersView extends StatelessWidget {
                     color: color, fontWeight: FontWeight.w600, fontSize: 12)),
           ),
           SizedBox(width: 8.w),
-          if (u.role != 'admin')
+          if (isAdmin && u.role != 'admin')
             IconButton(
               icon: const Icon(Icons.delete_outline, color: AppTheme.error),
               onPressed: () => ctrl.remove(u),

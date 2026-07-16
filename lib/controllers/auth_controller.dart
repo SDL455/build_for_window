@@ -11,6 +11,7 @@ import '../services/firestore_service.dart';
 
 class AuthController extends GetxController {
   final AuthService _authService;
+  // ignore: unused_field
   final FirestoreService _firestoreService;
   final _box = GetStorage(AppConstants.boxAuth);
 

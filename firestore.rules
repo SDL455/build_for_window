@@ -22,10 +22,10 @@ service cloud.firestore {
       return isAuthenticated() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'customer';
     }
 
-    // Users collection - Allow users to register themselves, but only admin can assign roles
+    // Users collection - Allow users to register themselves and let admins create accounts for others
     match /users/{userId} {
       allow read: if isAdmin() || request.auth.uid == userId;
-      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow create: if isAdmin() || (isAuthenticated() && request.auth.uid == userId);
       allow update: if isAdmin() || (request.auth.uid == userId && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role']));
       allow delete: if isAdmin();
     }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../app/constants/app_constants.dart';
 import '../app/routes/app_routes.dart';
 import '../app/theme/app_theme.dart';
 import '../controllers/auth_controller.dart';
@@ -41,9 +42,11 @@ class AdminDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Get.find<AuthController>().user;
+    final isAdmin = user?.role == AppConstants.roleAdmin;
     final items = [
       _DrawerItem(Icons.dashboard_rounded, 'Dashboard', AppRoutes.dashboard),
-      _DrawerItem(Icons.people_alt_rounded, 'Users', AppRoutes.users),
+      if (isAdmin)
+        _DrawerItem(Icons.people_alt_rounded, 'Users', AppRoutes.users),
       _DrawerItem(Icons.storefront_rounded, 'Restaurants', AppRoutes.restaurants),
       _DrawerItem(Icons.receipt_long_rounded, 'Orders', AppRoutes.orders),
       _DrawerItem(Icons.person_rounded, 'Profile', AppRoutes.profile),
